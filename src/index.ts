@@ -61,9 +61,11 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 
 // Middleware de aplicacion
 app.use(async (req: Request, res: Response, next: NextFunction) => {
+  console.log("Middleware de conexion")
   await mongoConnect();
   await sqlConnect();
   await AppDataSource.initialize();
+  next();
 })
 
 // Uso del router
