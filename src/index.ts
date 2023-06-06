@@ -4,8 +4,8 @@ import express from "express";
 import type { Request, Response, NextFunction, ErrorRequestHandler } from "express";
 // Conexiones
 import { mongoConnect } from "./databases/mongo-db";
-import { sqlConnect } from "./databases/sql-db";
-import { AppDataSource } from "./databases/typeorm-datasource";
+// import { sqlConnect } from "./databases/sql-db";
+// import { AppDataSource } from "./databases/typeorm-datasource";
 // Rutas
 import { bookRoutes } from "./routes/book.routes";
 import { authorRoutes } from "./routes/author.routes";
@@ -64,8 +64,8 @@ app.use(async (req: Request, res: Response, next: NextFunction) => {
   console.log("Middleware de conexion");
   try {
     await mongoConnect();
-    await sqlConnect();
-    await AppDataSource.initialize();
+    // await sqlConnect();
+    // await AppDataSource.initialize();
     next();
   } catch (error) {
     next(error);
