@@ -61,12 +61,16 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 
 // Middleware de aplicacion
 app.use(async (req: Request, res: Response, next: NextFunction) => {
-  console.log("Middleware de conexion")
-  await mongoConnect();
-  await sqlConnect();
-  await AppDataSource.initialize();
-  next();
-})
+  console.log("Middleware de conexion");
+  try {
+    await mongoConnect();
+    await sqlConnect();
+    await AppDataSource.initialize();
+    next();
+  } catch (error) {
+    next(error);
+  }
+});
 
 // Uso del router
 app.use("/book", bookRoutes);
